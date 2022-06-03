@@ -46,8 +46,7 @@ class CommercialArea:
         response = json.loads(response_json.content)
         responseArr = response.get('body').get('items')
 
-        df = pd.DataFrame(responseArr)
-        print(df)
+        _return = pd.DataFrame(responseArr)
         
         #테스트 필요
         page = response.get('body').get('totalCount') // 1000 + 1
@@ -58,6 +57,8 @@ class CommercialArea:
                 add_response = json.loads(add_response_json.content)
                 add_responseArr = add_response.get('body').get('items')
                 responseArr = responseArr + add_responseArr
+                
+        return _return
         
 ##이런식으로 사용하면 됨
 #test = CommercialArea()
