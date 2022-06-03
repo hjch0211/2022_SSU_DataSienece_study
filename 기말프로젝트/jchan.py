@@ -65,3 +65,4 @@ class CommercialArea:
 #test = CommercialArea()
 #DivId = (test.getDivId('11590', '상도1동'))
 #print(test.getCommercialArea(DivId))
+##리펙토링 마렵네요..
