@@ -4,6 +4,7 @@ import webbrowser
 import time
 import requests
 
+### 필요한 인자가 시군구코드, 찾을행정동
 class CommercialArea: 
     decode_serviceKey = 'NwS7t35ZvejHIExKbCymXgmyoLk0WLkZKDslnArD0xyBdUm3ohgWtefXVg25j9L9z3UdyDXXWbfIVjwGfOFArw=='    
     ednode_serviceKey = 'NwS7t35ZvejHIExKbCymXgmyoLk0WLkZKDslnArD0xyBdUm3ohgWtefXVg25j9L9z3UdyDXXWbfIVjwGfOFArw%3D%3D'
