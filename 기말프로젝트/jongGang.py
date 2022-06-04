@@ -13,7 +13,7 @@ def getCommercialArea(signguCd, adongNm):
     def getDivId():
         #signguCd = '11590' 동작구
         webbrowser.open("http://apis.data.go.kr/B553077/api/open/sdsc2/baroApi")
-        time.sleep(2) #임시 비동기 처리
+        time.sleep(1.5) #임시 비동기 처리
             
         url = 'http://apis.data.go.kr/B553077/api/open/sdsc2/baroApi?resId=dong&catId=admi'+'&serviceKey=' + ednode_serviceKey + '&signguCd=' + signguCd + '&type=json'
             
