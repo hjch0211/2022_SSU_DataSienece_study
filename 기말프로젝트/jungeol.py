@@ -1,12 +1,38 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri May 27 22:07:32 2022
 
-@author: dali1
+
+
 """
 
-import json
+import pandas as pd
 
-with open('.\resourse\서울시 우리마을가게 상권분석서비스(상권-소득소비).json','r') as f:
-    json_data = json.load(f)
-print(json.dumps(json_data))
+def load_data(univ):
+    excel_data = pd.read_csv("대학리스트.csv")
+    result_data= excel_data[excel_data['대학']==univ]
+    return str(result_data['시군구코드'].values[0]), result_data['행정동이름'].values[0]
+
+    
+    
+def main():
+    a, b = load_data('숭실대학교')
+    print(type(str(a)))
+    print(type(b))
+
+
+    
+if __name__ =='__main__':
+    main()
+
+
+
+class LoadUnivData:
+    def __init__(self, univ):
+        self.univ = univ
+        self.gucode, self.dongname = load_data(self.univ)
+        
+        
+    def loadUniv(self):
+        return self.gucode, self.dongname
+        
+        
