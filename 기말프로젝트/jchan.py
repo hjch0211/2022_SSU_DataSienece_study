@@ -92,15 +92,15 @@ def setMap():
         return review_geoData.sort_values('naver_blog_review_qty', ascending=False)    
 
     for i, store in getReview(ssu_review).head(10).iterrows(): 
-        popup = '<div style="width:150px;height:80px"><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
+        popup = '<div style="width:150px;height:80px"><div>숭실대학교</div><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
         folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='blue')).add_to(review_map)
 
     for i, store in getReview(su_review).head(10).iterrows(): 
-        popup = '<div style="width:150px;height:80px"><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
+        popup = '<div style="width:150px;height:80px"><div>서울대학교</div><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
         folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='yellow')).add_to(review_map)
 
     for i, store in getReview(jau_review).head(10).iterrows(): 
-        popup = '<div style="width:150px;height:80px"><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
+        popup = '<div style="width:150px;height:80px"><div>중앙대학교</div><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
         folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='orange')).add_to(review_map)
 
     review_map.save('./학교별리뷰수.html')
