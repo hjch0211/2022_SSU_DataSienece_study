@@ -51,7 +51,7 @@ def getCommercialArea(signguCd, adongNm):
             responseArr = responseArr + add_responseArr
             
     _return = pd.DataFrame(responseArr)
-            
+    
     return _return
 
 ### 최대반경 2km
@@ -104,6 +104,15 @@ def setMap():
         folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='orange')).add_to(review_map)
 
     review_map.save('./학교별리뷰수.html')
+    
+    reviewMean_dict = {}
+    reviewMean_dict['ssu'] = getReview(ssu_review)['naver_blog_review_qty'].mean()
+    reviewMean_dict['su'] = getReview(su_review)['naver_blog_review_qty'].mean()
+    reviewMean_dict['jau'] = getReview(jau_review)['naver_blog_review_qty'].mean()
+    _return = pd.DataFrame(reviewMean_dict, index=[0])
+    _return.index = ['리뷰수 평균']
+    
+    return _return
     
 ### 필요한 인자가 시군구코드, 찾을행정동
 class CommercialArea:
