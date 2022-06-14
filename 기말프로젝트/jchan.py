@@ -1,6 +1,10 @@
 import pandas as pd
 import json
 import requests
+import urllib.request
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import time
 
 decode_serviceKey = 'g9uyVk1xMZNy1G+bBKcWE6O0ywsy+3Om+NA/2B+KUvULR+Dg9uiN+z5S+XFoFnGQOE22ooo5GHovHau0HpNW7w=='    
 ednode_serviceKey = 'g9uyVk1xMZNy1G%2BbBKcWE6O0ywsy%2B3Om%2BNA%2F2B%2BKUvULR%2BDg9uiN%2Bz5S%2BXFoFnGQOE22ooo5GHovHau0HpNW7w%3D%3D'
@@ -51,25 +55,26 @@ def getCommercialArea(signguCd, adongNm):
     return _return
 
 ### 최대반경 2km
-def getStoreListInRadius(cx, cy):
-    storeList = []
-    for key, value in {'병원': 'S01', '백화점': 'D03B01', '영화관': 'N03A01'}.items():
-        #params
-        url = 'http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInRadius'
-        params = {'serviceKey' : decode_serviceKey, 'pageNo' : '1', 'numOfRows' : '1000', 'radius' : '2000', 'cx' : cx, 'cy' : cy, 'type' : 'json' }
-        if key == '병원':
-            params['indsMclsCd'] = value
-        else:
-            params['indsSclsCd'] = value
+# def getStoreListInRadius(cx, cy):
+#     storeList = []
+#     for key, value in {'병원': 'S01', '백화점': 'D03B01', '영화관': 'N03A01'}.items():
+#         #params
+#         url = 'http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInRadius'
+#         params = {'serviceKey' : decode_serviceKey, 'pageNo' : '1', 'numOfRows' : '1000', 'radius' : '2000', 'cx' : cx, 'cy' : cy, 'type' : 'json' }
+#         if key == '병원':
+#             params['indsMclsCd'] = value
+#         else:
+#             params['indsSclsCd'] = value
         
-        response_json = requests.get(url, params=params, allow_redirects=False)
-        response = json.loads(response_json.content)
-        storeList.append(response.get('body').get('items'))
+#         response_json = requests.get(url, params=params, allow_redirects=False)
+#         response = json.loads(response_json.content)
+#         storeList.append(response.get('body').get('items'))
         
-    hospital = pd.DataFrame(storeList[0])
-    store = pd.DataFrame(storeList[1])
-    theater = pd.DataFrame(storeList[2])
-    return hospital, store, theater
+#     hospital = pd.DataFrame(storeList[0])
+#     store = pd.DataFrame(storeList[1])
+#     theater = pd.DataFrame(storeList[2])
+#     return hospital, store, theater
+
     
 ### 필요한 인자가 시군구코드, 찾을행정동
 class CommercialArea:
