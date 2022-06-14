@@ -75,6 +75,35 @@ def getCommercialArea(signguCd, adongNm):
 #     theater = pd.DataFrame(storeList[2])
 #     return hospital, store, theater
 
+#네이버 지도 방문자리뷰수, 블로그리뷰수 지도 시각화
+#!pip install folium
+import folium
+import pandas as pd
+
+def setMap():
+    review_map = folium.Map(location=[37.4873, 126.9510], zoom_start=14)
+
+    ssu_review = pd.read_csv('./숭실대-리뷰수2.csv', encoding='UTF-8', engine='python')
+    su_review = pd.read_csv('./서울대-리뷰수.csv', encoding='UTF-8', engine='python')
+    jau_review = pd.read_csv('./중앙대-리뷰수.csv', encoding='UTF-8', engine='python')
+
+    def getReview(review):
+        review_geoData = review[['bizesNm', 'lon', 'lat', 'naver_store_type', 'naver_blog_review_qty']]
+        return review_geoData.sort_values('naver_blog_review_qty', ascending=False)    
+
+    for i, store in getReview(ssu_review).head(10).iterrows(): 
+        popup = '<div style="width:150px;height:80px"><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
+        folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='blue')).add_to(review_map)
+
+    for i, store in getReview(su_review).head(10).iterrows(): 
+        popup = '<div style="width:150px;height:80px"><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
+        folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='yellow')).add_to(review_map)
+
+    for i, store in getReview(jau_review).head(10).iterrows(): 
+        popup = '<div style="width:150px;height:80px"><div>상호명 : %s</div><div>분류 : %s</div><div>블로그리뷰수 : %s</div></div>' % (store['bizesNm'],store['naver_store_type'],store['naver_blog_review_qty'])
+        folium.Marker(location=[store['lat'],store['lon']], popup=popup, icon=folium.Icon(color='orange')).add_to(review_map)
+
+    review_map.save('./학교별리뷰수.html')
     
 ### 필요한 인자가 시군구코드, 찾을행정동
 class CommercialArea:
@@ -91,3 +120,5 @@ class CommercialArea:
     def getCoordinate(self):
         _return = getStoreListInRadius(self._cx, self._cy)
         return _return
+    
+    
